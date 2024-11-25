@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Withdraw - RobinhoodFx</title>
+
+    <!-- ======= Styles ====== -->
+    <link rel="icon" href="./assets/images/logo.png" />
+    <link rel="stylesheet" href="./assets/css/withdraw.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ======== Script ======= -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+    <script type="module" src="./assets/js/withdraw.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "Nyfdw9a7QN8HaaLJ8",
+        });
+      })();
+    </script>
+  </head>
+
+  <body>
+    <!-- ======================= Loading ======================== -->
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="loading-screen" class="loading">Loading...</div>
+
+    <!-- =============== Navigation ================ -->
+    <div class="container" id="dashboard-content" style="display: none">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="index.html">
+              <span class="icon">
+                <img src="./assets/images/logo.png" alt="" />
+              </span>
+              <span class="title brand">
+                <h3>Robinhood<span class="fx">Fx</span></h3>
+              </span>
+            </a>
+          </li>
+
+          <li class="active-link">
+            <a href="dashboard.html">
+              <span class="icon">
+                <i class="fa-solid fa-layer-group"></i>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="fund.html">
+              <span class="icon">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </span>
+              <span class="title">Fund Wallet</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="invest.html">
+              <span class="icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </span>
+              <span class="title">Invest</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="withdraw.html">
+              <span class="icon">
+                <i
+                  class="fa-solid fa-building-columns"
+                  style="color: limegreen"
+                ></i>
+              </span>
+              <span class="title" style="color: limegreen">Withdrawal</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="refer.html">
+              <span class="icon">
+                <i class="fa-solid fa-user-group"></i>
+              </span>
+              <span class="title">Refferals</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <span class="icon">
+                <i class="fa-solid fa-gear"></i>
+              </span>
+              <span class="title">Profile</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="logoutButton">
+              <span class="icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div></div>
+          <div class="toggle">
+            <img src="./assets/images/menu.png" alt="" />
+          </div>
+
+          <div class="logo">
+            <span class="user-info">
+              <h2 id="welcomeMessage"></h2>
+            </span>
+          </div>
+
+          <div class="settings">
+            <a href="settings.html">
+              <i class="fa-solid fa-gear" style="color: #fff"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= Withdrawal Section =============== -->
+        <p class="withdrawal-description">
+          Choose the cryptocurrency option suitable for you, insert your
+          withdrawal wallet's address, enter amount to be withdrawn, wait for a
+          while, as we will process your withdrawal, confirm it and send you a
+          receipt via your registered email address.
+        </p>
+        <div class="withdrawal-container" id="withdraw">
+          <h2>
+            WITHDRAW
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </h2>
+          <form id="withdrawalForm">
+            <select id="crypto" name="crypto" required>
+              <option value="" disabled selected>
+                Select your Wallet type
+              </option>
+              <option value="bitcoin">Bitcoin (BTC)</option>
+              <option value="ethereum">Ethereum (ETH)</option>
+              <option value="tether">Tether (USDT)</option>
+            </select>
+
+            <input type="text" id="name" placeholder="Your name" style="display: none;" />
+            <input type="email" id="email" placeholder="Your email" style="display: none;" />
+            <input
+              type="text"
+              id="wallet-address"
+              name="wallet-address"
+              placeholder="Your wallet address"
+              required
+            />
+            <input
+              type="number"
+              id="withdraw-amount"
+              min="50"
+              name="amount"
+              placeholder="Amount($)"
+              required
+            />
+
+            <button type="submit" onclick="sendMail()">Withdraw</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ========================== Popups ====================== -->
+      <div id="confirmationPopup" class="popup">
+        <span id="confirmationMessage">Are you sure you want to log out?</span>
+        <div>
+          <button id="confirmYes" class="confirm-button">Yes</button>
+          <button id="confirmNo" class="confirm-button">No</button>
+        </div>
+      </div>
+      <div id="popup" class="popup">
+        <span id="popup-message"></span>
+        <span class="close-popup">&times;</span>
+      </div>
+    </div>
+
+    <div class="popup-full hidden-pay" id="customPopup">
+      <div class="popup-fund">
+        <div class="popup-content">
+          <img src="./assets/images/withdraw.jpeg" alt="" />
+          <h2>Withdrawal Processing...</h2>
+          <p>
+            Your Funds are on the way! <br />
+            Please wait for the transaction to complete(less than 1 hour).
+          </p>
+          <p>
+            Note: <br />
+            If your funds don't reflect in 2 hours time contact us using our
+            service center form by clicking the contact link below : <br />
+            <a href="contact.html#contact" style="color: #fff"> contact </a>
+          </p>
+          <button id="popupOkButton">
+            <a href="withdraw.html" style="color: #000"> OK </a>
+            <i class="fa fa-angle-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== Scripts =====================  -->
+    <script>
+      // ============= Crypto wallets ================== //
+
+      // ==================== Menu Toggle ===================== //
+      let toggle = document.querySelector(".toggle");
+      let navigation = document.querySelector(".navigation");
+      let main = document.querySelector(".main");
+
+      toggle.onclick = function () {
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+      };
+
+      // ========== Close popup when clicking outside of it ========== //
+      window.onclick = function (event) {
+        const popup = document.getElementById("popup");
+        if (event.target === popup) {
+          popup.style.display = "none";
+        }
+      };
+
+      // ======= Close popup when clicking the close button ======== //
+      document.querySelector(".close-popup").onclick = function () {
+        document.getElementById("popup").style.display = "none";
+      };
+    </script>
+  </body>
+</html>

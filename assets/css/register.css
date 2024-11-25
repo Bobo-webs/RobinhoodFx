@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  background: #000;
+  font-family: "Poppins";
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+:root {
+  --bg-color: #fff;
+  --white: #fff;
+  --gray: #f5f5f5;
+  --black1: #222;
+  --black2: #f3f3f3;
+  --pry-color: #000;
+  --logo-color: limegreen;
+}
+
+.fx {
+  color: var(--logo-color);
+}
+
+/* Remove the light blue outline on mobile devices */
+* {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Poppins";
+}
+
+/* If you want to target specific elements, use the following */
+a,
+img,
+button,
+input {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure it covers most mobile browsers */
+a,
+img,
+button,
+input {
+  outline: none !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  /* Safari */
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  /* Firefox */
+  -ms-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  /* Internet Explorer/Edge */
+  tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  /* Standard */
+}
+
+
+/* ================ loading =============== */
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+#form {
+  width: 100%;
+  max-width: 400px;
+  height: fit-content;
+  margin: 0 auto;
+  background-color: var(--black1);
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+.logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.span-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.logo-img {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 481px) {
+  .logo-wrapper h2 {
+    font-size: 18px;
+  }
+}
+
+#form h1 {
+  color: var(--pry-color);
+  text-align: center;
+  font-size: 24px;
+}
+
+#form button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 2rem;
+  width: 60%;
+  color: var(--pry-color);
+  background-color: var(--logo-color);
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#form button:hover {
+  background-color: rgb(49, 150, 49);
+  transition: all 0.5s;
+  color: #000;
+}
+
+#form p a {
+  color: var(--pry-color);
+}
+
+#form p {
+  text-align: center;
+}
+
+#form p a {
+  text-decoration: underline;
+}
+
+.input-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding: 0 20px;
+}
+
+.input-control input {
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-color);
+  border-radius: 15px;
+  line-height: 10px;
+  border: none;
+}
+
+.input-control input:focus {
+  outline: 0;
+}
+
+.input-control label {
+  font-size: 15px;
+  margin-left: 0.5rem;
+  color: var(--white);
+}
+
+.input-control.success input {
+  border-color: #09c372;
+}
+
+.input-control.error input {
+  border-color: #ff3860;
+}
+
+.input-control .error {
+  color: #ff3860;
+  font-size: 12px;
+  height: 13px;
+  max-height: fit-content;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  #form {
+    padding: 0px;
+  }
+
+  .input-control {
+    padding: 0 10px;
+  }
+
+  #form h1 {
+    font-size: 20px;
+  }
+
+  #form button {
+    padding: 8px;
+  }
+
+  .input-control input {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+/* --------------------------- Popup Prompt -------------------------- */
+.hidden {
+  display: none;
+}
+
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--pry-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
+  color: var(--white);
+}
+
+.popup-content {
+  background-color: var(--pry-color);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  height: 200px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  box-sizing: border-box;
+  color: var(--white);
+}
+
+.popup-content img {
+  width: 100px;
+  height: 100px;
+}
+
+.popup-content p {
+  color: var(--logo-color);
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+@media (max-width: 481px) {
+
+  p,
+  h3,
+  h4,
+  h5,
+  table,
+  a,
+  label,
+  ul,
+  li {
+    font-size: small;
+  }
+}

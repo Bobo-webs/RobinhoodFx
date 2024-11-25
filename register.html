@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - RobinhoodFx</title>
+    <link rel="icon" href="./assets/images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/register.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <a href="index.html" class="logo-wrapper">
+        <span class="span-logo">
+          <img
+            class="logo-img"
+            src="./assets/images/logo.png"
+            loading="lazy"
+            alt="RobinhoodFx"
+          />
+          <h1>Robinhood<span class="fx">Fx</span></h1>
+        </span>
+      </a>
+      <form id="form" action="/">
+        <h2 style="text-align: center">Sign Up</h2>
+        <div class="input-control">
+          <label for="firstname">Username</label>
+          <input id="firstname" name="firstname" type="text" />
+          <div class="error"></div>
+        </div>
+        <div class="input-control">
+          <label for="lastname">Full Name</label>
+          <input id="lastname" name="lastname" type="text" />
+          <div class="error"></div>
+        </div>
+        <div class="input-control">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="text" />
+          <div class="error"></div>
+        </div>
+        <div class="input-control">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            class="password"
+            name="password"
+            type="password"
+          />
+          <div class="error"></div>
+        </div>
+        <div class="input-control">
+          <label for="password2">Confirm Password</label>
+          <input
+            id="password2"
+            class="password"
+            name="password2"
+            type="password"
+          />
+          <div class="error"></div>
+        </div>
+        <label
+          style="
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          "
+        >
+          <input
+            type="checkbox"
+            id="showPasswordCheckbox"
+            onclick="togglePasswords()"
+          />
+          Show Password
+        </label>
+        <div class="input-control">
+          <label for="refer">Referral code</label>
+          <input id="refer" name="refer" type="text" />
+        </div>
+        <p>
+          Already Have an account?
+          <a href="login.html" style="color: var(--logo-color)">Sign In</a>
+        </p>
+        <button type="submit" id="submit">Register</button>
+      </form>
+    </div>
+
+    <!-- Popup Prompt -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <img src="./assets/images/checked.png" alt="" />
+        <span class="close" onclick="closePopup()"></span>
+        <p id="popup-message"></p>
+        <p>Redirecting to Login Page please wait...</p>
+      </div>
+    </div>
+    <div id="error-popup" class="popup">
+      <div class="popup-content">
+        <img src="./assets/images/cancel.png" alt="" />
+        <p id="error-message"></p>
+        <!-- <button class="close" onclick="closePopup()">OK</button> -->
+      </div>
+    </div>
+
+    <script type="module" src="./assets/js/register.js" defer></script>
+    <script>
+      function togglePasswords() {
+        const passwordFields = document.querySelectorAll(".password");
+        const checkbox = document.getElementById("showPasswordCheckbox");
+
+        passwordFields.forEach((passwordField) => {
+          passwordField.type = checkbox.checked ? "text" : "password";
+        });
+      }
+    </script>
+  </body>
+</html>

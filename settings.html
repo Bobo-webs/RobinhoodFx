@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - RobinhoodFx</title>
+
+    <!-- ======= Styles ====== -->
+    <link rel="icon" href="./assets/images/logo.png" />
+    <link rel="stylesheet" href="./assets/css/settings.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ======== Script ======= -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-storage.js"></script>
+    <script type="module" src="./assets/js/settings.js"></script>
+  </head>
+
+  <body>
+    <!-- ======================= Loading ======================== -->
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="loading-screen" class="loading">Loading...</div>
+
+    <!-- =============== Navigation ================ -->
+    <div class="container" id="dashboard-content" style="display: none">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="index.html">
+              <span class="icon">
+                <img src="./assets/images/logo.png" alt="" />
+              </span>
+              <span class="title brand">
+                <h3>Robinhood<span class="fx">Fx</span></h3>
+              </span>
+            </a>
+          </li>
+
+          <li class="active-link">
+            <a href="dashboard.html">
+              <span class="icon">
+                <i class="fa-solid fa-layer-group"></i>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="fund.html">
+              <span class="icon">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </span>
+              <span class="title">Fund Wallet</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="invest.html">
+              <span class="icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </span>
+              <span class="title">Invest</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="withdraw.html">
+              <span class="icon">
+                <i class="fa-solid fa-building-columns"></i>
+              </span>
+              <span class="title">Withdrawal</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="refer.html">
+              <span class="icon">
+                <i class="fa-solid fa-user-group"></i>
+              </span>
+              <span class="title">Refferals</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <span class="icon">
+                <i class="fa-solid fa-gear" style="color: limegreen"></i>
+              </span>
+              <span class="title" style="color: limegreen">Profile</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="logoutButton">
+              <span class="icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div></div>
+          <div class="toggle">
+            <img src="./assets/images/menu.png" alt="" />
+          </div>
+          <div class="logo">
+            <span class="user-info">
+              <h2 id="welcomeMessage"></h2>
+            </span>
+          </div>
+          <div class="settings">
+            <a href="settings.html">
+              <i class="fa-solid fa-gear" style="color: #fff"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= Refer Section =============== -->
+        <p class="settings-description">
+          CLIENTS VERIFICATION FORM <br />
+          Dear Investor, Kindly use the form below to update your information,
+          to receive exclusive benefits. <br />
+          NOTE: We do not share our investors or clients data with any third
+          party. Your personal details are safe with us.
+        </p>
+        <section class="settings-container" id="settings">
+          <header>⚙️PROFILE SETTINGS</header>
+          <form class="form" id="profile-form">
+            <div class="input-box">
+              <label>Full Name</label>
+              <input type="text" id="fullname" />
+            </div>
+            <div class="input-box">
+              <label>Email Address</label>
+              <input type="email" id="profile-email" />
+            </div>
+            <div class="input-box">
+              <label>Select a verification document</label>
+              <select id="select-id" name="select-id" required>
+                <option value="" disabled selected></option>
+                <option value="option1">Contact address verification</option>
+                <option value="option2">Valid ID Card</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <label for="fileInput">Upload Selected Document:</label>
+              <input
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                multiple
+                required
+              />
+            </div>
+            <div class="column">
+              <div class="input-box">
+                <label>Phone Number</label>
+                <input
+                  type="number"
+                  id="phone"
+                  placeholder="Enter phone number"
+                  required
+                />
+              </div>
+              <div class="input-box">
+                <label>Birth Date</label>
+                <input type="date" placeholder="Enter birth date" required />
+              </div>
+            </div>
+            <div class="gender-box">
+              <h3>Gender</h3>
+              <div class="gender-option">
+                <div class="gender">
+                  <input type="radio" id="check-male" name="gender" required />
+                  <label for="check-male">Male</label>
+                </div>
+                <div class="gender">
+                  <input type="radio" id="check-female" name="gender" />
+                  <label for="check-female">Female</label>
+                </div>
+                <div class="gender">
+                  <input type="radio" id="check-other" name="gender" />
+                  <label for="check-other">Others</label>
+                </div>
+              </div>
+            </div>
+            <div class="input-box address">
+              <label>Address</label>
+              <input
+                type="text"
+                id="full-address"
+                placeholder="Enter full address"
+                required
+              />
+              <div class="column">
+                <input
+                  type="text"
+                  id="city"
+                  placeholder="Enter your city"
+                  required
+                />
+                <input
+                  type="text"
+                  id="state"
+                  placeholder="Enter your state"
+                  required
+                />
+              </div>
+              <div class="column">
+                <input
+                  type="text"
+                  id="country"
+                  placeholder="Enter country"
+                  required
+                />
+                <input
+                  type="number"
+                  id="postal-code"
+                  placeholder="Enter postal code"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit">Update</button>
+          </form>
+        </section>
+      </div>
+
+      <!-- ========================== Popups ====================== -->
+      <div id="confirmationPopup" class="popup">
+        <span id="confirmationMessage">Are you sure you want to log out?</span>
+        <div>
+          <button id="confirmYes" class="confirm-button">Yes</button>
+          <button id="confirmNo" class="confirm-button">No</button>
+        </div>
+      </div>
+      <div id="popup" class="popup">
+        <span id="popup-message"></span>
+        <span class="close-popup">&times;</span>
+      </div>
+    </div>
+
+    <!-- =================== Scripts =====================  -->
+    <script>
+      // ============= Copy fx ================== //
+      document.querySelectorAll("#copy-button").forEach((copyButton) => {
+        copyButton.addEventListener("click", function () {
+          // Get the text to copy from the first element with ID 'text-to-copy'
+          const textToCopy = document.querySelector("#text-to-copy").innerText;
+
+          // Create a temporary textarea element to hold the text
+          const textarea = document.createElement("textarea");
+          textarea.value = textToCopy;
+          document.body.appendChild(textarea);
+
+          // Select the text and copy it to the clipboard
+          textarea.select();
+          document.execCommand("copy");
+
+          // Remove the temporary textarea element
+          document.body.removeChild(textarea);
+
+          // Show the "Copied!" prompt for each copy prompt element
+          document.querySelectorAll("#copy-prompt").forEach((copyPrompt) => {
+            copyPrompt.classList.remove("hidden");
+
+            // Hide the prompt after 2 seconds
+            setTimeout(function () {
+              copyPrompt.classList.add("hidden");
+            }, 2000);
+          });
+        });
+      });
+
+      // ==================== Menu Toggle ===================== //
+      let toggle = document.querySelector(".toggle");
+      let navigation = document.querySelector(".navigation");
+      let main = document.querySelector(".main");
+
+      toggle.onclick = function () {
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+      };
+
+      // ========== Close popup when clicking outside of it ========== //
+      window.onclick = function (event) {
+        const popup = document.getElementById("popup");
+        if (event.target === popup) {
+          popup.style.display = "none";
+        }
+      };
+
+      // ======= Close popup when clicking the close button ======== //
+      document.querySelector(".close-popup").onclick = function () {
+        document.getElementById("popup").style.display = "none";
+      };
+    </script>
+  </body>
+</html>

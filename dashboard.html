@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - RobinhoodFx</title>
+
+    <!-- ======= Styles ====== -->
+    <link rel="icon" href="./assets/images/logo.png">
+    <link rel="stylesheet" href="./assets/css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- ======== Script ======= -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+    <script type="module" src="./assets/js/dashboard.js"></script>
+</head>
+
+<body>
+    <!-- ======================= Loading ======================== -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+    <div id="loading-screen" class="loading">Loading...</div>
+
+    <!-- =============== Navigation ================ -->
+    <div class="container" id="dashboard-content" style="display: none;">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <span class="icon">
+                            <img src="./assets/images/logo.png" alt="">
+                        </span>
+                        <span class="title brand">
+                            <h3>Robinhood<span class="fx">Fx</span></h3>
+                        </span>
+                    </a>
+                </li>
+
+                <li class="active-link">
+                    <a href="dashboard.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-layer-group" style="color: limegreen;"></i>
+                        </span>
+                        <span class="title" style="color: limegreen;">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="fund.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </span>
+                        <span class="title">Fund Wallet</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="invest.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </span>
+                        <span class="title">Invest</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="withdraw.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </span>
+                        <span class="title">Withdrawal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="refer.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-group"></i>
+                        </span>
+                        <span class="title">Refferals</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="settings.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-gear"></i>
+                        </span>
+                        <span class="title">Profile</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a id="logoutButton">
+                        <span class="icon"> 
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div></div>
+                <div class="toggle">
+                    <img src="./assets/images/menu.png" alt="">
+                </div>
+
+                <div class="logo">
+                    <span class="user-info">
+                    </span>
+                </div>
+
+                <div class="settings">
+                    <a href="settings.html">
+                        <i class="fa-solid fa-gear" style="color: #fff;"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- ======================= Cards ================== -->
+             <div class="dashboard-intro">
+                <h1 class="name-brand" style="color: #fff;">
+                    Robinhood<span class="fx">Fx</span>
+                </h1>
+                <span class="name-info" style="color: #696969; text-transform: uppercase;">
+                </span>
+                <p style="font-size: 16px;">Here’s a quick overview of your account. Enjoy!</p>
+                <div class="card">
+                    <div id="balance">
+                        <div class="numbers">-</div>
+                        <div class="cardName light-blue">Total Balance</div>
+                    </div>
+                </div>
+                <div class="btn-dashboard">
+                    <a class="btn deposit-btn" href="settings.html">
+                        Update Profile <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a class="btn profile-btn" href="fund.html">
+                        Deposit <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
+             </div>
+            <div class="cardBox" id="card-box">
+
+                <div class="card">
+                    <div id="investments">
+                        <div class="numbers">-</div>
+                        <div class="cardName light-blue">Investments</div>
+                    </div>
+                    <div class="iconBx">
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div id="deposits">
+                        <div class="numbers">-</div>
+                        <div class="cardName light-blue">Deposits</div>
+                    </div>
+                    <div class="iconBx">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cardBox" id="card-box">
+                <div class="card" style="background-color: #fff;">
+                    <div id="referrals">
+                        <div class="numbers">-</div>
+                        <div class="cardName ref-black">Refferals</div>
+                    </div>
+                    <div class="iconBx">
+                        <i class="fa-solid fa-user-group" style="color: #000 !important;"></i>
+                    </div>
+                </div>
+                <div class="card" style="background-color: #fff;">
+                    <div id="pay-method">
+                        <div class="iconBx">
+                            <i class="fa-solid fa-credit-card" style="color: #000;"></i>
+                        </div>
+                        <div class="cardName">BTC</div>
+                        <div class="cardName">ETH</div>
+                        <div class="cardName">USDT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div class="details" id="details">
+                <h2>TRANSACTIONS</h2>
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Transactions History</h2>
+                        <a href="#" class="btn">View All</a>
+                    </div>
+
+                    <table class="transactions-table" id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <!--
+            <div class="recentOrders">
+                <div class="cardHeader">
+                    <h2>Investments History</h2>
+                    <a href="#" class="btn">View All</a>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Plan</td>
+                            <td>Price</td>
+                            <td>Date</td>
+                            <td>Status</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Gold</td>
+                            <td>$1200</td>
+                            <td>12/21/2024<br>13:45PM</td>
+                            <td><span class="status delivered">Delivered</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Bronze</td>
+                            <td>$110</td>
+                            <td>12/21/2024<br>13:45PM</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Platinum</td>
+                            <td>$1200</td>
+                            <td>12/21/2024<br>13:45PM</td>
+                            <td><span class="status return">Failed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        -->
+
+        <!-- ========================== Popups ====================== -->
+        <div id="confirmationPopup" class="popup">
+            <span id="confirmationMessage">Are you sure you want to log out?</span>
+            <div>
+                <button id="confirmYes" class="confirm-button">Yes</button>
+                <button id="confirmNo" class="confirm-button">No</button>
+            </div>
+        </div>
+        <div id="popup" class="popup">
+            <span id="popup-message"></span>
+            <span class="close-popup">&times;</span>
+        </div>
+
+        <!-- =================== Scripts =====================  -->
+        <script>
+            // ==================== Menu Toggle ===================== //
+            let toggle = document.querySelector(".toggle");
+            let navigation = document.querySelector(".navigation");
+            let main = document.querySelector(".main");
+
+            toggle.onclick = function () {
+                navigation.classList.toggle("active");
+                main.classList.toggle("active");
+            };
+
+            // ============== Hide Figures Fx ============ //
+            document.addEventListener("DOMContentLoaded", function () {
+                const eyeIcon = document.getElementById("eye");
+                const eyeSlashIcon = document.getElementById("eye-slash");
+                const numbersElements = document.querySelectorAll(".numbers");
+
+                function toggleVisibility(show) {
+                    numbersElements.forEach(element => {
+                        if (show) {
+                            // Show original content
+                            element.innerHTML = element.getAttribute("data-value");
+                        } else {
+                            // Mask content
+                            element.innerHTML = "****";
+                        }
+                    });
+                    eyeIcon.style.display = show ? 'none' : 'inline';
+                    eyeSlashIcon.style.display = show ? 'inline' : 'none';
+                }
+
+                eyeIcon.addEventListener("click", function () {
+                    toggleVisibility(true);
+                });
+
+                eyeSlashIcon.addEventListener("click", function () {
+                    toggleVisibility(false);
+                });
+
+                // Initial state
+                toggleVisibility(false);
+            });
+
+            // ========== Close popup when clicking outside of it ========== //
+            window.onclick = function (event) {
+                const popup = document.getElementById('popup');
+                if (event.target === popup) {
+                    popup.style.display = 'none';
+                }
+            }
+
+            // Close popup when clicking the close button
+            document.querySelector('.close-popup').onclick = function () {
+                document.getElementById('popup').style.display = 'none';
+            }
+        </script>
+</body>
+
+</html>

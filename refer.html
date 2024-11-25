@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Referral - RobinhoodFx</title>
+
+    <!-- ======= Styles ====== -->
+    <link rel="icon" href="./assets/images/logo.png" />
+    <link rel="stylesheet" href="./assets/css/refer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ======== Script ======= -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+    <script type="module" src="./assets/js/refer.js"></script>
+  </head>
+
+  <body>
+    <!-- ======================= Loading ======================== -->
+    <div id="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="loading-screen" class="loading">Loading...</div>
+
+    <!-- =============== Navigation ================ -->
+    <div class="container" id="dashboard-content" style="display: none">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="index.html">
+              <span class="icon">
+                <img src="./assets/images/logo.png" alt="" />
+              </span>
+              <span class="title brand">
+                <h3>Robinhood<span class="fx">Fx</span></h3>
+              </span>
+            </a>
+          </li>
+
+          <li class="active-link">
+            <a href="dashboard.html">
+              <span class="icon">
+                <i class="fa-solid fa-layer-group"></i>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="fund.html">
+              <span class="icon">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </span>
+              <span class="title">Fund Wallet</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="invest.html">
+              <span class="icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </span>
+              <span class="title">Invest</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="withdraw.html">
+              <span class="icon">
+                <i class="fa-solid fa-building-columns"></i>
+              </span>
+              <span class="title">Withdrawal</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="refer.html">
+              <span class="icon">
+                <i class="fa-solid fa-user-group" style="color: limegreen"></i>
+              </span>
+              <span class="title" style="color: limegreen">Refferals</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <span class="icon">
+                <i class="fa-solid fa-gear"></i>
+              </span>
+              <span class="title">Profile</span>
+            </a>
+          </li>
+
+          <li>
+            <a id="logoutButton">
+              <span class="icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div></div>
+          <div class="toggle">
+            <img src="./assets/images/menu.png" alt="menu" />
+          </div>
+
+          <div class="logo">
+            <span class="user-info">
+              <h2 id="welcomeMessage"></h2>
+            </span>
+          </div>
+
+          <div class="settings">
+            <a href="settings.html">
+              <i class="fa-solid fa-gear" style="color: #fff"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= Refer Section =============== -->
+        <p class="referral-description">
+          RobinhoodFx's referral system is crafted to maximize the benefits for
+          our members on our investment platform. Use your unique code below to
+          invite your family, friends, and colleagues, and earn an automatic 10%
+          of their first investify account deposit.
+        </p>
+        <div class="referral-container" id="refer">
+          <h2>
+            REFERRAL CODE
+            <i class="fa-solid fa-user-group"></i>
+          </h2>
+          <div class="referral-code">
+            <p id="text-to-copy">-</p>
+            <button id="copy-button">Copy</button>
+            <span id="copy-prompt" class="hidden">Copied!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================== Popups ====================== -->
+      <div id="confirmationPopup" class="popup">
+        <span id="confirmationMessage">Are you sure you want to log out?</span>
+        <div>
+          <button id="confirmYes" class="confirm-button">Yes</button>
+          <button id="confirmNo" class="confirm-button">No</button>
+        </div>
+      </div>
+      <div id="popup" class="popup">
+        <span id="popup-message"></span>
+        <span class="close-popup">&times;</span>
+      </div>
+    </div>
+
+    <!-- =================== Scripts =====================  -->
+    <script>
+      // ============= Copy fx ================== //
+      document.querySelectorAll("#copy-button").forEach((copyButton) => {
+        copyButton.addEventListener("click", function () {
+          // Get the text to copy from the first element with ID 'text-to-copy'
+          const textToCopy = document.querySelector("#text-to-copy").innerText;
+
+          // Create a temporary textarea element to hold the text
+          const textarea = document.createElement("textarea");
+          textarea.value = textToCopy;
+          document.body.appendChild(textarea);
+
+          // Select the text and copy it to the clipboard
+          textarea.select();
+          document.execCommand("copy");
+
+          // Remove the temporary textarea element
+          document.body.removeChild(textarea);
+
+          // Show the "Copied!" prompt for each copy prompt element
+          document.querySelectorAll("#copy-prompt").forEach((copyPrompt) => {
+            copyPrompt.classList.remove("hidden");
+
+            // Hide the prompt after 2 seconds
+            setTimeout(function () {
+              copyPrompt.classList.add("hidden");
+            }, 2000);
+          });
+        });
+      });
+
+      // ==================== Menu Toggle ===================== //
+      let toggle = document.querySelector(".toggle");
+      let navigation = document.querySelector(".navigation");
+      let main = document.querySelector(".main");
+
+      toggle.onclick = function () {
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+      };
+
+      // ========== Close popup when clicking outside of it ========== //
+      window.onclick = function (event) {
+        const popup = document.getElementById("popup");
+        if (event.target === popup) {
+          popup.style.display = "none";
+        }
+      };
+
+      // ======= Close popup when clicking the close button ======== //
+      document.querySelector(".close-popup").onclick = function () {
+        document.getElementById("popup").style.display = "none";
+      };
+    </script>
+  </body>
+</html>
