@@ -132,7 +132,7 @@ function displayUserData(uid) {
         ).textContent = `Welcome, ${firstname}!`;
         const userDataDiv = document.querySelector(".user-info");
         userDataDiv.innerHTML = `
-          <h3>👋Hello, ${firstname}!</h3>
+          <h3>Hello, ${firstname}!</h3>
         `;
         updateFundAmount(uid); // Update the displayed fund amount when user data is displayed
       }

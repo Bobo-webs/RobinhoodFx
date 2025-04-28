@@ -141,7 +141,7 @@ function displayUserData(uid) {
         // Optionally display the user info in a specific div
         const userDataDiv = document.querySelector(".user-info");
         if (userDataDiv) {
-          userDataDiv.innerHTML = `<h3>👋Hello, ${firstname}!</h3>`;
+          userDataDiv.innerHTML = `<h3>Hello, ${firstname}!</h3>`;
         }
 
         // Call function to update fund amount if needed

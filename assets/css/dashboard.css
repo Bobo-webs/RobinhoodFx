@@ -422,7 +422,7 @@ body {
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 30px;
+  grid-gap: 10px;
   margin-top: 1rem;
 }
 
@@ -441,13 +441,13 @@ body {
 .numbers {
   position: relative;
   font-weight: bold;
-  font-size: 1.5rem;
-  color: #535353;
+  font-size: 1.7rem;
+  color: #fff;
 }
 
 @media (max-width: 450px) {
   .numbers {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -742,6 +742,7 @@ body {
 @media (max-width: 480px) {
   .cardBox {
     grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
   }
 
   .user {
@@ -804,7 +805,6 @@ body, html {
   margin: 0 auto;
   padding: 30px;
   margin-left: -0.1rem;
-  margin-top: 3rem;
 }
 
 .dashboard-intro p {
@@ -828,29 +828,24 @@ body, html {
 }
 
 .deposit-btn {
-  background-color: #927725;
-  color: #ffff6d;
+  background-color: #fff;
+  color: #000;
   flex-wrap: nowrap;
 }
 
 .deposit-btn:hover {
-  color: #927725;
-  background-color: #ffff6d;
-  transition: 1s;
-}
-
-.deposit-btn:hover {
-  background-color: #ffff6d;
+  color: #be9a2b;
+  background-color: #fff;
   transition: 0.7s;
 }
 
 .profile-btn {
-  background-color: #083757;
-  color: var(--off-color);
+  background-color: #fff;
+  color: #000;
 }
 
 .profile-btn:hover {
-  background-color: var(--off-color);
+  background-color: #fff;
   color: #083757;
   transition: 0.7s;
 }

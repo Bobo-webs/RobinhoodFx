@@ -491,12 +491,16 @@ body {
 }
 
 .crypto-display img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 180px;
 }
 
 .crypto-display {
   margin: 3rem 0;
+}
+
+.crypto-display #re-fund-amount {
+  font-size: 2rem;
 }
 
 .fund-description {
@@ -539,7 +543,7 @@ body {
 }
 
 #copy-button:hover {
-  background-color: limegreen;
+  background-color: #fff;
   color: var(--pry-color);
   transition: 1s;
 }
@@ -631,25 +635,23 @@ body {
 }
 
 .btn-div button a:hover {
-  color: var(--white) !important;
   transition: 1s;
 }
 
 .btn-cancel {
-  background-color: #dc3545;
+  background-color: #fff;
 }
 
 .btn-cancel:hover {
-  background-color: #9b1e2a;
+  color: #9b1e2a;
 }
 
 .btn-success {
-  background-color: #33e633;
+  background-color: #fff;
 }
 
 .btn-success:hover {
-  background-color: #156415;
-  color: var(--white);
+  color: #156415;
   transition: 1s;
 }
 
@@ -777,7 +779,6 @@ body {
 
   p,
   h1,
-  h3,
   h4,
   h5,
   table,
